@@ -1,0 +1,132 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header{
+    background-color: rgb(45, 41, 41);
+    height: 80px;
+}
+
+#header .webName{
+    display: inline-block;
+    color: #fff;
+    line-height: 80px;
+    text-decoration: none;
+    padding: 0px 0px 0px 24px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 32px;
+}
+
+#nav{
+    display: inline-block;
+    padding-right: 24px;
+    float: right;
+}
+
+#nav li{
+display: inline-block;
+}
+
+#nav li :hover{
+    background-color: #000;
+    color: white;
+}
+
+#nav li a{
+    color: #bbb7b7;
+    line-height: 80px;
+    text-decoration: none;
+    padding: 0px 24px;
+    text-transform: capitalize;
+    display: inline-block;
+    font-weight: 300;
+    font-size: 28px;
+}
+
+body {
+    background-color: palevioletred;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    display: block;
+    background-color: aquamarine;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+button:hover{
+    background-color: yellow;
+}
+
+#table_result{
+    margin-top: 60px;
+}
+
+#number{
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: 900;
+    color: white;
+}
+
+.text_table{
+    font-size: 30px;
+    padding: 5px 20px;
+    font-weight: 600;
+}
+
+.text_table_title{
+    font-size: 40px;
+    text-decoration: underline;
+    color:#444444;
+    text-transform: uppercase;
+}
+
+#note{
+    margin-top: 20px;
+    font-style: italic;
+    text-align: left;
+    color:rgb(0, 0, 0)
+}
+
+#note>ul{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#note li{
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#accountArea, #contractArea, #dataArea_mssv, #dataArea_hoTen, #dataArea_tuoi, #dataArea_tienDu{
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+}
+
+#inputArea{
+    font-weight: 800;
+    color: #000;
+    font-size: 20px;
+}
+
+.text_inside{
+    padding: 2px 10px;
+}

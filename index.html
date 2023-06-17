@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>QLTT</title>
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+            <div class="webName">
+                Reward System Demo
+            </div>
+                
+            <ul id="nav">
+                <li id="btn_connect"><a href="">Connect</a></li>
+                <li id="btn_tasks"><a href="">ChangeData</a></li>
+                <li id="btn_random"><a href="">Task1</a></li>
+                <li id="btn_randomExpression"><a href="">Task2</a></li>
+            </ul>
+        </div>
+
+        <div class="container" id="tab_content1">
+            <button class="text_inside" onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
+            <p id="accountArea"></p>
+
+            <button class="text_inside" onclick="connectContract()">CONNECT TO SMART CONTRACT</button> <br>
+            <p id="contractArea"></p>
+        </div> 
+
+        <div class="container" id="tab_content2">
+            <button class="text_inside" onclick="readContract()">GET DATA FROM CONTRACT</button> <br>
+            <p id="dataArea_mssv"></p>
+            <p id="dataArea_hoTen"></p>
+            <p id="dataArea_tuoi"></p>
+            <p id="dataArea_tienDu"></p>
+
+            <button class="text_inside" onclick="changeContract()">CHANGE BALANCE FROM CONTRACT</button> <br>
+            <input type="text" id="inputArea">
+        </div>
+
+        <!-- tab content -->
+        <div class="container" id="tab_content3">
+            <button class="text_inside" onclick="randomNumber()">RANDOM A NUMBER</button> <br>
+            <p id="number"></p>
+            <table id="table_result" border="4">
+                <tr>
+                   <th class="text_table text_table_title">User</th>
+                   <th class="text_table text_table_title">Method</th>
+                   <th class="text_table text_table_title">Steps</th>
+                   <th class="text_table text_table_title">Token</th>
+                </tr>
+                <tr>
+                   <td class="text_table">User1</>
+                   <td class="text_table">Linear Search</td>
+                   <td class="text_table" id="stepUser1">...</td>
+                   <td class="text_table" id="tokenUser1">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User2</td>
+                    <td class="text_table">Binary Search</td>
+                    <td class="text_table" id="stepUser2">...</td>
+                    <td class="text_table" id="tokenUser2">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User3</td>
+                    <td class="text_table">Ternary Search</td>
+                    <td class="text_table" id="stepUser3">...</td>
+                    <td class="text_table" id="tokenUser3">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User4</td>
+                    <td class="text_table">Exponential Search</td>
+                    <td class="text_table" id="stepUser4">...</td>
+                    <td class="text_table" id="tokenUser4">...</td>
+                 </tr>
+            </table>
+
+            <div id="note">
+                <ul>LƯU Ý
+                    <li>Thực hiện trên mảng số nguyên liên tục từ 1->100</li>
+                    <li>Số Token được chia tương ứng với số bước cần thiết để tìm ra số đó: <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;- steps <= 5 &nbsp;&nbsp;: 10<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;- steps <= 30 : 5<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;- steps <= 50 : 2<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;- steps &nbsp;>&nbsp; 50 : 0
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+            <!-- tab content -->
+        <div class="container" id="tab_content4">
+            <button class="text_inside" onclick="randomExpression()">RANDOM A EXPRESSION</button> <br>
+            <p id="expression"></p>
+            <table id="table_result" border="4">
+                <tr>
+                   <th class="text_table text_table_title">User</th>
+                   <th class="text_table text_table_title">Answer</th>
+                   <th class="text_table text_table_title">Token</th>
+                </tr>
+                <tr>
+                   <td class="text_table">User1</>
+                   <td class="text_table" id="stepUser1">
+                        <input type="int" id="answer_User1">
+                   </td>
+                   <td class="text_table" id="tokenTask2User1">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User2</td>
+                    <td class="text_table" id="stepUser2">
+                        <input type="int" id="answer_User2">
+                    </td>
+                    <td class="text_table" id="tokenTask2User2">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User3</td>
+                    <td class="text_table" id="stepUser3">
+                        <input type="int" id="answer_User3">
+                    </td>
+                    <td class="text_table" id="tokenTask2User3">...</td>
+                </tr>
+                <tr>
+                    <td class="text_table">User4</td>
+                    <td class="text_table" id="stepUser4">
+                        <input type="int" id="answer_User4">
+                    </td>
+                    <td class="text_table" id="tokenTask2User4">...</td>
+                </tr>
+            </table>
+            <button class="text_inside" onclick="checkAnswerExpression()">CHECK</button>
+            <p id="expression_test"></p>
+        </div>
+
+    </div>
+    <script>
+            // chia cac tab: bat dau
+    // Lấy các đối tượng button và tab content
+    var button1 = document.getElementById("btn_connect");
+    var button2 = document.getElementById("btn_tasks");
+    var button3 = document.getElementById("btn_random");
+    var button4 = document.getElementById("btn_randomExpression");
+    var tabContent1 = document.getElementById("tab_content1");
+    var tabContent2 = document.getElementById("tab_content2");
+    var tabContent3 = document.getElementById("tab_content3");
+    var tabContent4 = document.getElementById("tab_content4");
+
+    button1.style.backgroundColor = "black"
+    button2.style.backgroundColor = "rgb(45, 41, 41)"
+    button3.style.backgroundColor = "rgb(45, 41, 41)"
+    button4.style.backgroundColor = "rgb(45, 41, 41)"
+
+    tabContent1.style.display = "flex";
+    tabContent1.style.flexDirection = "column";
+    tabContent1.style.justifyContent = "center";
+    tabContent1.style.alignItems = "center";
+    tabContent1.style.textAlign = "center";
+
+    tabContent2.style.display = "none";
+    tabContent3.style.display = "none";
+    tabContent4.style.display = "none";
+
+    // Xử lý sự kiện click cho button 1
+    button1.addEventListener("click", function(event) {
+    // huy cac hanh dong mac dinh HTML cai dat san - truong` hop nay la the a
+
+    event.preventDefault();
+    // Ẩn tất cả tab content
+    button1.style.backgroundColor = "black"
+    button2.style.backgroundColor = "rgb(45, 41, 41)"
+    button3.style.backgroundColor = "rgb(45, 41, 41)"
+    button4.style.backgroundColor = "rgb(45, 41, 41)"
+    tabContent1.style.display = "flex";
+    tabContent1.style.flexDirection = "column";
+    tabContent1.style.justifyContent = "center";
+    tabContent1.style.alignItems = "center";
+    tabContent1.style.textAlign = "center";
+
+    tabContent2.style.display = "none";
+    tabContent3.style.display = "none";
+    tabContent4.style.display = "none";
+    });
+
+    // Xử lý sự kiện click cho button 2
+    button2.addEventListener("click", function(event) {
+    // huy cac hanh dong mac dinh HTML cai dat san - truong` hop nay la the a
+    event.preventDefault();
+
+    // Ẩn tất cả tab 
+    button1.style.backgroundColor = "rgb(45, 41, 41)"
+    button2.style.backgroundColor = "black"
+    button3.style.backgroundColor = "rgb(45, 41, 41)"
+    button4.style.backgroundColor = "rgb(45, 41, 41)"
+    tabContent1.style.display = "none";
+    tabContent3.style.display = "none";
+    tabContent4.style.display = "none";
+
+    tabContent2.style.display = "flex";
+    tabContent2.style.flexDirection = "column";
+    tabContent2.style.justifyContent = "center";
+    tabContent2.style.alignItems = "center";
+    tabContent2.style.textAlign = "center";
+    });
+
+    // Xử lý sự kiện click cho button 3
+    button3.addEventListener("click", function(event) {
+    // huy cac hanh dong mac dinh HTML cai dat san - truong` hop nay la the a
+    event.preventDefault();
+
+    // Ẩn tất cả tab content
+    button1.style.backgroundColor = "rgb(45, 41, 41)"
+    button2.style.backgroundColor = "rgb(45, 41, 41)"
+    button3.style.backgroundColor = "black"
+    button4.style.backgroundColor = "rgb(45, 41, 41)"
+
+    tabContent1.style.display = "none";
+    tabContent2.style.display = "none";
+    tabContent4.style.display = "none";
+
+    tabContent3.style.display = "flex";
+    tabContent3.style.flexDirection = "column";
+    tabContent3.style.justifyContent = "center";
+    tabContent3.style.alignItems = "center";
+    tabContent3.style.textAlign = "center";
+    });
+
+    button4.addEventListener("click", function(event) {
+    // huy cac hanh dong mac dinh HTML cai dat san - truong` hop nay la the a
+
+    event.preventDefault();
+    // Ẩn tất cả tab content
+    button4.style.backgroundColor = "black"
+    button1.style.backgroundColor = "rgb(45, 41, 41)"
+    button2.style.backgroundColor = "rgb(45, 41, 41)"
+    button3.style.backgroundColor = "rgb(45, 41, 41)"
+
+    tabContent4.style.display = "flex";
+    tabContent4.style.flexDirection = "column";
+    tabContent4.style.justifyContent = "center";
+    tabContent4.style.alignItems = "center";
+    tabContent4.style.textAlign = "center";
+
+    tabContent1.style.display = "none";
+    tabContent2.style.display = "none";
+    tabContent3.style.display = "none";
+    });
+    </script>
+    </div>
+</body>
+</html>
